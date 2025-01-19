@@ -9,7 +9,7 @@ from home_page import home_page
 init_db()
 
 # Streamlit Page Config
-st.set_page_config(page_title = 'Student Verification', layout='wide', page_icon=":man-student:", initial_sidebar_state="expanded")
+st.set_page_config(page_title = 'Student Verification', layout='wide')
 
 # Add background image to the main page
 
