@@ -1,6 +1,6 @@
 streamlit==1.30.0
-dlib
 cmake
+dlib
 pandas==2.0.0
 streamlit_option_menu==0.3.6
 scikit-learn
