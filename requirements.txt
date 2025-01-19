@@ -1,6 +1,7 @@
 streamlit==1.29.0
 cmake
 pyyaml
+dlib
 pandas==2.0.0
 streamlit_option_menu==0.3.6
 face_recognition @ git+https://github.com/thetoby9944/face_recognition
