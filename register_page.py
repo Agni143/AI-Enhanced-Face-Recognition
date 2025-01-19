@@ -29,7 +29,7 @@ def register_page():
         name = col1.text_input("Name of Student")
         email = col2.text_input("Enter College Email")
         regd_no = col1.text_input("Registration Number")
-        branch = col2.selectbox("Branch of Study", ["CSE", "ECE", "EEE", "MECH", "CIVIL", "IT", "AIDS", "BIO-TECH", "CHEMICAL", "ARCHITECTURE"])
+        branch = col2.selectbox("Branch of Study", ["CSE", "ECE", "EEE", "MECH", "CIVIL", "IT", "AIDS", "BIO-TECH", "CHEMICAL", "ARCHITECTURE","CSM"])
         student_type = col1.selectbox("Student Type", ["Day Scholar", "Hosteller"])
         course=col2.selectbox("Course of Study",["B.Tech","M.Tech","PhD","MBA","MCA","B.Sc","M.Sc","B.A","M.A","B.Com","M.Com"])
         college_name=col1.text_input("Enter College Name")
