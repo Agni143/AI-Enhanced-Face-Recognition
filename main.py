@@ -8,13 +8,6 @@ from home_page import home_page
 # Initialize the database
 init_db()
 
-# Streamlit Page Config
-st.set_page_config(page_title = 'Student Verification')
-
-# Add background image to the main page
-
-
-
 # Session State Initialization
 if "page" not in st.session_state:
     st.session_state["page"] = "Home"
