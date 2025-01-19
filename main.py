@@ -4,7 +4,7 @@ from register_page import register_page
 from db_manager import init_db
 from streamlit_option_menu import option_menu
 from home_page import home_page
-
+st.write('hi')
 # Initialize the database
 init_db()
 
