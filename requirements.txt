@@ -1,8 +1,8 @@
 streamlit==1.30.0
+opencv-python
 cmake
-dlib==19.24.2
+pyyaml
 pandas==2.0.0
 streamlit_option_menu==0.3.6
-scikit-learn
 numpy
-face_recognition
+face_recognition @ git+https://github.com/thetoby9944/face_recognition
