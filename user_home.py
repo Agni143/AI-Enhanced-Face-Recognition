@@ -2,10 +2,8 @@ import streamlit as st
 import pandas as pd
 import base64
 from streamlit_option_menu import option_menu
-from db_manager import valid_user
-user_data = st.session_state.get('user_email', None)
-user_data = valid_user(user_data)
 def user_profile():
+    user_data =st.session_state['user']
     st.markdown(
     """
     <style>
@@ -116,6 +114,8 @@ def user_profile():
         st.error("User not logged in!")
 
 def user_home_page():
+    user_data =st.session_state['user']
+
     # Navigation menu for user dashboard
     with st.sidebar:
         #write Hello and name at the top of the sidebar at center with wave emoji
@@ -132,5 +132,5 @@ def user_home_page():
         user_profile()
     elif selected_tab=='Logout':
         # Logout functionality
-        st.session_state.clear()  # Clear session state to "log out"
+        st.session_state.clear()  
         st.experimental_rerun()
