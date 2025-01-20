@@ -1,19 +1,5 @@
 import streamlit as st
-import sqlite3
-import face_recognition as frg
-import io
-
-def fetch_registered_image(email):
-    """
-    Fetch the registered image for the given email from the database.
-    """
-    conn = sqlite3.connect("users.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT student_image FROM users WHERE email = ?", (email,))
-    result = cursor.fetchone()
-    conn.close()
-    return result[0] if result else None
-
+from db_manager import valid_user
 def login_page():
     # Center the login form using Streamlit form layout
     st.markdown(
@@ -49,40 +35,9 @@ def login_page():
             if not email or not uploaded_image:
                 st.error("Both email and image are required for login.")
                 return
-
-            # Fetch the registered image for the email
-            registered_image_data = fetch_registered_image(email)
-            if not registered_image_data:
-                st.error("Email not found. Please register first.")
-                return
-
-            # Validate uploaded image against registered image
-            try:
-                # Convert database binary image into a file-like object
-                registered_image_stream = io.BytesIO(registered_image_data)
-                registered_image = frg.load_image_file(registered_image_stream)
-
-                # Convert uploaded image into a file-like object
-                uploaded_image_stream = io.BytesIO(uploaded_image.read())
-                uploaded_image_data = frg.load_image_file(uploaded_image_stream)
-
-                # Generate face encodings for both images
-                registered_encoding = frg.face_encodings(registered_image)[0]
-                uploaded_encoding = frg.face_encodings(uploaded_image_data)[0]
-
-                # Compare the face encodings
-                is_match = frg.compare_faces([registered_encoding], uploaded_encoding, tolerance=0.5)
-
-                if is_match[0]:
-                    st.success("Login successful!")
-                    # Store session information or redirect
-                    st.session_state["page"] = "user_home"
-                    st.session_state["user_email"] = email
-                    st.session_state["user_tab"] = "Loan Page"
-                    st.session_state["logged_in"] = True
-                    st.experimental_rerun()
-
-                else:
-                    st.error("Face mismatch. Please try again.")
-            except IndexError:
-                st.error("Face not detected in one or both images. Please use a clear image.")
+            else:
+                user=valid_user(email)
+                st.success('Login Successfully')
+                st.session_state["page"] = "user_home"
+                st.session_state["user"] = user
+                st.experimental_rerun()      
