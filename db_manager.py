@@ -49,3 +49,11 @@ def valid_user(email):
     user = cursor.fetchone()
     conn.close()
     return user
+
+def fetch_user_data(email):
+    conn = sqlite3.connect("users.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+    user = cursor.fetchone()
+    conn.close()
+    return user
