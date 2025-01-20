@@ -1,5 +1,4 @@
 import sqlite3
-import face_recognition as frg
 
 # Database setup
 def init_db():
@@ -41,45 +40,6 @@ def register_user(name, email, regd_no, branch, student_type, course, college_na
         return False
     finally:
         conn.close()
-
-import io
-
-def validate_user(email, uploaded_image):
-    conn = sqlite3.connect("users.db")
-    cursor = conn.cursor()
-
-    # Fetch the user's registered image based on email
-    cursor.execute("SELECT student_image FROM users WHERE email = ?", (email,))
-    result = cursor.fetchone()
-    conn.close()
-
-    if not result:
-        return None, "Email not found"
-
-    # Convert binary data from the database into a file-like object
-    registered_image_stream = io.BytesIO(result[0])
-
-    try:
-        # Load registered and uploaded images
-        registered_image = frg.load_image_file(registered_image_stream)
-        uploaded_image_stream = io.BytesIO(uploaded_image.read())
-        uploaded_image = frg.load_image_file(uploaded_image_stream)
-
-        # Generate face encodings
-        registered_encoding = frg.face_encodings(registered_image)[0]
-        uploaded_encoding = frg.face_encodings(uploaded_image)[0]
-
-        # Compare face encodings
-        match = frg.compare_faces([registered_encoding], uploaded_encoding, tolerance=0.5)
-
-        if match[0]:
-            return True, "Login successful"
-        else:
-            return False, "Face mismatch"
-    except IndexError:
-        return False, "Face not detected in one or both images"
-
-
 
 
 def valid_user(email):
